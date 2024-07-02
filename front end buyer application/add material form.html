@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Additional Material Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        form div {
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="number"], input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: #FFF;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Additional Material Details</h1>
+    
+    <form id="additionalMaterialForm">
+        <div>
+            <label for="materialName">Material Name:</label>
+            <input type="text" id="materialName" name="materialName" required>
+        </div>
+        <div>
+            <label for="materialColor">Color:</label>
+            <input type="text" id="materialColor" name="materialColor" required>
+        </div>
+        <div>
+            <label for="materialQuantity">Quantity:</label>
+            <input type="number" id="materialQuantity" name="materialQuantity" required>
+        </div>
+        <div>
+            <label for="materialRate">Rate per Piece:</label>
+            <input type="number" id="materialRate" name="materialRate" required>
+        </div>
+        <div>
+            <label for="postedDate">Posted Date:</label>
+            <input type="date" id="postedDate" name="postedDate" required>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('additionalMaterialForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const materialName = document.getElementById('materialName').value;
+        const materialColor = document.getElementById('materialColor').value;
+        const materialQuantity = document.getElementById('materialQuantity').value;
+        const materialRate = document.getElementById('materialRate').value;
+        const postedDate = document.getElementById('postedDate').value;
+
+        const newMaterial = {
+            name: materialName,
+            color: materialColor,
+            quantity: materialQuantity,
+            rate: materialRate,
+            date: postedDate
+        };
+        
+        const materialList = JSON.parse(localStorage.getItem('materialList')) || [];
+        materialList.push(newMaterial);
+        localStorage.setItem('materialList', JSON.stringify(materialList));
+        
+        window.location.href = 'index.html';
+    });
+</script>
+
+</body>
+</html>

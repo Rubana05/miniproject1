@@ -1,0 +1,36 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f9;
+}
+
+.logo img {
+    width: 150px;
+    display: block;
+    margin: 0 auto;
+}
+
+.welcome {
+    text-align: center;
+    color: #333;
+}
+
+.welcome h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #007BFF;
+}
+
+.welcome p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #555;
+}

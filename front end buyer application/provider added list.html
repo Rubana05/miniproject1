@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Management</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #007BFF;
+            color: #FFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 0 auto 20px auto;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Material list styles */
+        .material-list {
+            margin-top: 20px;
+        }
+
+        .material-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .material-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .material-item div {
+            margin-bottom: 5px;
+        }
+
+        .material-item-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .material-item-actions button {
+            padding: 8px 12px;
+            background-color: #007BFF;
+            color: #FFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .material-item-actions button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            button {
+                padding: 10px 15px;
+            }
+
+            .material-item {
+                flex-direction: column;
+            }
+
+            .material-item-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Material Management</h1>
+
+    <button onclick="window.location.href='additional_details.html'">Add Material</button>
+    
+    <div class="material-list" id="materialList">
+        <!-- List of materials will appear here -->
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if the user is logged in
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const materialList = JSON.parse(localStorage.getItem('materialList')) || [];
+        const materialListContainer = document.getElementById('materialList');
+
+        materialList.forEach((material, index) => {
+            const materialItem = document.createElement('div');
+            materialItem.className = 'material-item';
+            materialItem.innerHTML = `
+                <div><strong>Name:</strong> ${material.name}</div>
+                <div><strong>Color:</strong> ${material.color}</div>
+                <div><strong>Quantity:</strong> ${material.quantity}</div>
+                <div><strong>Rate per Piece:</strong> ${parseFloat(material.rate).toFixed(2)}</div>
+                <div><strong>Posted Date:</strong> ${material.date}</div>
+                <div><strong>Contact Number:</strong> ${material.contact}</div>
+                <div><strong>Location:</strong> ${material.location}</div>
+                <div class="material-item-actions">
+                    <button onclick="shareMaterial(${index})">Share</button>
+                    <button onclick="deleteMaterial(${index})">Delete</button>
+                </div>
+            `;
+            materialListContainer.appendChild(materialItem);
+        });
+    });
+
+    function shareMaterial(index) {
+        const materialList = JSON.parse(localStorage.getItem('materialList'));
+        const material = materialList[index];
+        alert(`Share Material: ${JSON.stringify(material, null, 2)}`);
+    }
+
+    function deleteMaterial(index) {
+        let materialList = JSON.parse(localStorage.getItem('materialList'));
+        materialList.splice(index, 1);
+        localStorage.setItem('materialList', JSON.stringify(materialList));
+        window.location.reload();
+    }
+</script>
+
+</body>
+</html>
